@@ -1,9 +1,11 @@
 package com.dynamodemo;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.AttributeUpdate;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.UpdateItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
@@ -13,9 +15,11 @@ import com.amazonaws.services.dynamodbv2.model.CreateTableResult;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.KeyType;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
+import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 
@@ -53,7 +57,7 @@ public class App
 
         Table table = dynamoDB.getTable("hello_table");
 
-        Item item = new Item().withPrimaryKey("Name", "Hello World 3")
+        Item item = new Item().withPrimaryKey("Name", "HelloWorld4")
         .withString("Date", "John Doe");
         // .withNumber("Age", 30);
         
@@ -64,15 +68,33 @@ public class App
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
         DynamoDB dynamoDB = new DynamoDB(client);
 
-        Table table = dynamoDB.getTable("YourTableName");
+        Table table = dynamoDB.getTable("hello_table");
 
-        UpdateItemSpec updateItemSpec = new UpdateItemSpec()
-                                 .withPrimaryKey("ID", 12345)
-                                 .withUpdateExpression("set Age = :age")
-                                 .withValueMap(new ValueMap()
-                                     .withNumber(":age", 30));
+        Map<String, String> expressionAttributeNames = new HashMap<String, String>();
+        expressionAttributeNames.put("#D", "Date");
+       
+        Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
+        expressionAttributeValues.put(":date", "02/02/2022");
+
+        AttributeUpdate test = new AttributeUpdate("Date").put("03/03/2022");
+
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("Name", "HelloWorld4").withAttributeUpdate(test)
+        .withReturnValues(ReturnValue.ALL_NEW);
+        // UpdateItemOutcome outcome = table.updateItem(updateItemSpec);
 
         table.updateItem(updateItemSpec);
+    }
+
+
+    public void ReadTable() {
+        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
+        DynamoDB dynamoDB = new DynamoDB(client);
+
+        Table table = dynamoDB.getTable("hello_table");
+
+        Item item = table.getItem("Name", "HelloWorld4");
+
+        System.out.println("Date: " + item.getString("Date"));
     }
 
     public static void main( String[] args )
@@ -81,6 +103,6 @@ public class App
 
         App app = new App();
 
-        app.AddTableItem();
+        app.UpdateTableItem();
     }
 }
