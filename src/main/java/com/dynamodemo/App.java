@@ -4,6 +4,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
@@ -59,7 +61,18 @@ public class App
     }
 
     public void  UpdateTableItem() {
-        
+        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
+        DynamoDB dynamoDB = new DynamoDB(client);
+
+        Table table = dynamoDB.getTable("YourTableName");
+
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec()
+                                 .withPrimaryKey("ID", 12345)
+                                 .withUpdateExpression("set Age = :age")
+                                 .withValueMap(new ValueMap()
+                                     .withNumber(":age", 30));
+
+        table.updateItem(updateItemSpec);
     }
 
     public static void main( String[] args )
