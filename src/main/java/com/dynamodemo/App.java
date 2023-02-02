@@ -18,6 +18,8 @@ import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,9 +76,13 @@ public class App
         expressionAttributeNames.put("#D", "Date");
        
         Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
-        expressionAttributeValues.put(":date", "02/02/2022");
 
-        AttributeUpdate test = new AttributeUpdate("Date").put("03/03/2022");
+        String timeStamp = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss").format(Calendar.getInstance().getTime());
+
+
+        // expressionAttributeValues.put(":date", "02/02/2022");
+
+        AttributeUpdate test = new AttributeUpdate("Date").put(timeStamp);
 
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("Name", "HelloWorld4").withAttributeUpdate(test)
         .withReturnValues(ReturnValue.ALL_NEW);
@@ -84,7 +90,6 @@ public class App
 
         table.updateItem(updateItemSpec);
     }
-
 
     public void ReadTable() {
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
