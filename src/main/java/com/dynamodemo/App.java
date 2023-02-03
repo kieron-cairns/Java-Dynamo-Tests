@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 
@@ -106,8 +108,18 @@ public class App
     {
         System.out.println("Main Mehtod Hit");
 
-        App app = new App();
 
-        app.UpdateTableItem();
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run () {
+                System.out.println("Table item updated");
+                App app = new App();
+                app.UpdateTableItem();
+
+            }
+        }, 0, 5000);
+
+        // app.UpdateTableItem();
     }
 }
