@@ -7,7 +7,7 @@
   <groupId>com.dynamodemo</groupId>
   <artifactId>dynamodemo</artifactId>
   <version>dynamodemo</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
 
   <name>dynamodemo</name>
