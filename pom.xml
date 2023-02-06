@@ -7,6 +7,8 @@
   <groupId>com.dynamodemo</groupId>
   <artifactId>dynamodemo</artifactId>
   <version>dynamodemo</version>
+  <packaging>pom</packaging>
+
 
   <name>dynamodemo</name>
   <!-- FIXME change it to the project's website -->
@@ -17,6 +19,10 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
+
+  <modules>
+    <module>webapp</module>
+  </modules>
 
   <dependencies>
     <dependency>
@@ -107,6 +113,16 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+
+ <plugin>
+                   <groupId>org.apache.maven.plugins</groupId>
+                   <artifactId>maven-war-plugin</artifactId>
+                   <version>3.3.2</version>
+                   <configuration>
+                       <failOnMissingWebXml>false</failOnMissingWebXml>
+                   </configuration>
+              </plugin>
+
       </plugins>
     </pluginManagement>
   </build>
