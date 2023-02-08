@@ -104,6 +104,20 @@ public class App
         System.out.println("Date: " + item.getString("Date"));
     }
 
+    public void Test() {
+        System.out.println("Test");
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run () {
+                System.out.println("Table item updated");
+                App app = new App();
+                app.UpdateTableItem();
+
+            }
+        }, 0, 5000);
+    }
+
     public static void main( String[] args )
     {
         System.out.println("Main Mehtod Hit");

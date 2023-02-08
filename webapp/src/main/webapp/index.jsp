@@ -2,7 +2,7 @@
 
 <%
    App app = new App();
-   app.main();
+   app.Test();
 %>
 
 
