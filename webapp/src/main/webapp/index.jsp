@@ -1,9 +1,4 @@
-<%@page import="com.dynamodemo.App"%>
 
-<%
-   App app = new App();
-   app.main();
-%>
 
 
 <h1>Hello World!</h1>
