@@ -2,7 +2,8 @@
 
 <%
    App app = new App();
-   app.Test();
+   app.UpdateTableItem();
+
 %>
 
 
