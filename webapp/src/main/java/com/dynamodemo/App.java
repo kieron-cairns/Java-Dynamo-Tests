@@ -18,6 +18,7 @@ import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 
+import java.io.Console;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -104,18 +105,20 @@ public class App
         System.out.println("Date: " + item.getString("Date"));
     }
 
-    public void Test() {
-        System.out.println("Test");
+    public String Test() {
+        // System.out.println("Test");
 
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run () {
-                System.out.println("Table item updated");
-                App app = new App();
-                app.UpdateTableItem();
+        // new Timer().scheduleAtFixedRate(new TimerTask() {
+        //     @Override
+        //     public void run () {
+        //         System.out.println("Table item updated");
+        //         App app = new App();
+        //         app.UpdateTableItem();
 
-            }
-        }, 0, 5000);
+        //     }
+        // }, 0, 5000);
+            return "Hello From Test Method";
+        
     }
 
     public static void main( String[] args )
